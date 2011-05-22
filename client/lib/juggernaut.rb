@@ -9,7 +9,8 @@ module Juggernaut
   ]
   
   def redis_options
-    @redis_options ||= {}
+    uri = URI.parse(ENV["REDISTOGO_URL"])
+    @redis_options ||= {:host => uri.host, :port => uri.port, :password => uri.password}
   end
   
   def publish(channels, data, options = {})
